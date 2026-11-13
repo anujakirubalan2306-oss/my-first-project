@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ULTRON AI</title>
+<title>ULTRON AI - Voice Assistant</title>
 
 <style>
 * {
@@ -24,6 +24,9 @@ header {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #1c3040;
+  position: sticky;
+  top: 0;
+  background: #070b12;
 }
 
 .logo {
@@ -40,22 +43,28 @@ header {
 
 main {
   max-width: 750px;
-  margin: 55px auto;
+  margin: 45px auto;
   padding: 20px;
 }
 
 .hero {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .orb {
-  width: 105px;
-  height: 105px;
+  width: 110px;
+  height: 110px;
   margin: auto;
   border-radius: 50%;
   background: radial-gradient(circle, #00ffae, #006d86, #10152a);
-  box-shadow: 0 0 35px #00ffae88;
+  box-shadow: 0 0 40px #00ffae88;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px #00ffae55; }
+  to { box-shadow: 0 0 55px #00ffae; }
 }
 
 h1 {
@@ -69,57 +78,61 @@ h1 span {
 
 .subtitle {
   color: #9ba9ba;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .chat {
   background: #101925;
   border: 1px solid #263c4d;
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 20px #00ffae12;
 }
 
 .chat-title {
   color: #00ffae;
+  font-size: 23px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .messages {
-  min-height: 180px;
-  max-height: 350px;
+  min-height: 200px;
+  max-height: 380px;
   overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .message {
-  padding: 13px;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 13px;
   margin: 12px 0;
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
 .bot {
   background: #1a2b38;
-  border-left: 3px solid #00ffae;
+  border-left: 4px solid #00ffae;
 }
 
 .user {
   background: #123b43;
-  margin-left: 35px;
+  margin-left: 30px;
+  border-right: 4px solid #00cfff;
 }
 
 .input-area {
   display: flex;
   gap: 8px;
-  margin-top: 15px;
+  align-items: stretch;
 }
 
 input {
   flex: 1;
   min-width: 0;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #345064;
   background: #080e17;
   color: white;
@@ -127,17 +140,44 @@ input {
 }
 
 button {
-  border: 0;
-  border-radius: 10px;
-  padding: 13px 18px;
+  border: none;
+  border-radius: 11px;
+  padding: 13px 16px;
   background: #00e6a0;
   color: #00140e;
   font-weight: bold;
+  font-size: 15px;
   cursor: pointer;
 }
 
+.mic {
+  font-size: 22px;
+  min-width: 55px;
+}
+
 button:active {
-  transform: scale(.97);
+  transform: scale(.96);
+}
+
+#voiceStatus {
+  color: #00ffae;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 18px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.controls button {
+  background: #203442;
+  color: white;
+  border: 1px solid #345064;
 }
 
 footer {
@@ -149,8 +189,11 @@ footer {
 
 @media(max-width:500px) {
   h1 { font-size: 30px; }
-  main { margin: 30px auto; }
-  .input-area button { padding: 12px; }
+  main { margin: 25px auto; padding: 16px; }
+  .chat { padding: 16px; }
+  .input-area { gap: 6px; }
+  input { padding: 12px; font-size: 13px; }
+  button { padding: 12px; }
 }
 </style>
 </head>
@@ -164,34 +207,61 @@ footer {
 
 <main>
 
-  <section class="hero">
-    <div class="orb"></div>
-    <h1>Hello, <span>Boss!</span></h1>
-    <p class="subtitle">
-      I am Ultron AI.<br>
-      Your personal digital assistant.
-    </p>
-  </section>
+<section class="hero">
+  <div class="orb"></div>
 
-  <section class="chat">
-    <div class="chat-title">◈ ULTRON CHAT</div>
+  <h1>Hello, <span>Boss!</span></h1>
 
-    <div class="messages" id="messages">
-      <div class="message bot">
-        Hello Boss! 👋 I am Ultron.
-        How can I help you today?
-      </div>
+  <p class="subtitle">
+    நான் உங்கள் Ultron AI.<br>
+    Your Personal Voice Assistant.
+  </p>
+</section>
+
+<section class="chat">
+
+  <div class="chat-title">◈ ULTRON CHAT</div>
+
+  <div class="messages" id="messages">
+    <div class="message bot">
+      வணக்கம் Boss! 👋 நான் Ultron AI.
+      என்ன உதவி வேண்டும்?
     </div>
+  </div>
 
-    <div class="input-area">
-      <input
-        id="userInput"
-        type="text"
-        placeholder="Ask Ultron anything..."
-      >
-      <button onclick="sendMessage()">SEND</button>
-    </div>
-  </section>
+  <div class="input-area">
+
+    <input
+      id="userInput"
+      type="text"
+      placeholder="Ultron-ிடம் பேசுங்கள்..."
+    >
+
+    <button class="mic"
+      onclick="startListening()"
+      id="micButton">
+      🎤
+    </button>
+
+    <button onclick="sendMessage()">
+      SEND
+    </button>
+
+  </div>
+
+  <p id="voiceStatus">🎤 Voice AI Ready</p>
+
+  <div class="controls">
+    <button onclick="stopSpeaking()">
+      🔇 Stop Voice
+    </button>
+
+    <button onclick="clearChat()">
+      🗑 Clear Chat
+    </button>
+  </div>
+
+</section>
 
 </main>
 
@@ -200,9 +270,43 @@ footer {
 </footer>
 
 <script>
+
+// ULTRON VOICE OUTPUT
+
+function speak(text) {
+
+  if (!("speechSynthesis" in window)) {
+    document.getElementById("voiceStatus").textContent =
+      "Voice output not supported";
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const voice = new SpeechSynthesisUtterance(text);
+
+  voice.lang = "ta-IN";
+  voice.rate = 0.9;
+  voice.pitch = 1;
+
+  speechSynthesis.speak(voice);
+}
+
+// STOP VOICE
+
+function stopSpeaking() {
+  if ("speechSynthesis" in window) {
+    speechSynthesis.cancel();
+  }
+}
+
+// CHAT FUNCTION
+
 function sendMessage() {
+
   const input = document.getElementById("userInput");
   const messages = document.getElementById("messages");
+
   const text = input.value.trim();
 
   if (!text) return;
@@ -210,25 +314,151 @@ function sendMessage() {
   const user = document.createElement("div");
   user.className = "message user";
   user.textContent = text;
+
   messages.appendChild(user);
 
   input.value = "";
 
+  let answer =
+    "வணக்கம் Boss! உங்கள் செய்தியை நான் பெற்றுக்கொண்டேன். உண்மையான AI இணைப்பு இன்னும் செய்யப்படவில்லை.";
+
+  const question = text.toLowerCase();
+
+  if (
+    question.includes("hello") ||
+    question.includes("வணக்கம்")
+  ) {
+    answer = "வணக்கம் Boss! நான் உங்கள் Ultron AI. எப்படி உதவ வேண்டும்?";
+  }
+
+  else if (
+    question.includes("பெயர்") ||
+    question.includes("name")
+  ) {
+    answer = "என் பெயர் Ultron AI Boss!";
+  }
+
+  else if (
+    question.includes("நலமா") ||
+    question.includes("how are you")
+  ) {
+    answer = "நான் நன்றாக இருக்கிறேன் Boss! நீங்கள் எப்படி இருக்கிறீர்கள்?";
+  }
+
+  else if (
+    question.includes("நன்றி") ||
+    question.includes("thank")
+  ) {
+    answer = "உங்களை வரவேற்கிறேன் Boss! எப்போதும் உதவத் தயாராக இருக்கிறேன்.";
+  }
+
+  else if (
+    question.includes("உதவி") ||
+    question.includes("help")
+  ) {
+    answer = "கண்டிப்பாக Boss! என்ன உதவி வேண்டும் என்று சொல்லுங்கள்.";
+  }
+
   const reply = document.createElement("div");
   reply.className = "message bot";
-  reply.textContent =
-    "Hello Boss! I received your message. " +
-    "I am currently running in Demo Mode. " +
-    "Real AI connection will be added in the next mission.";
+  reply.textContent = answer;
 
   messages.appendChild(reply);
+
   messages.scrollTop = messages.scrollHeight;
+
+  document.getElementById("voiceStatus").textContent =
+    "🔊 Ultron is speaking...";
+
+  speak(answer);
 }
 
+// VOICE INPUT
+
+function startListening() {
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice Recognition ஆதரவு இல்லை. Chrome Browser பயன்படுத்துங்கள்.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "ta-IN";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  const status = document.getElementById("voiceStatus");
+
+  status.textContent = "🎤 Boss, பேசுங்கள்...";
+
+  recognition.onresult = function(event) {
+
+    const text = event.results[0][0].transcript;
+
+    document.getElementById("userInput").value = text;
+
+    status.textContent = "✅ குரல் பெறப்பட்டது!";
+
+    sendMessage();
+  };
+
+  recognition.onerror = function(event) {
+
+    status.textContent =
+      "Voice Error: " + event.error;
+
+  };
+
+  recognition.onend = function() {
+
+    if (status.textContent === "🎤 Boss, பேசுங்கள்...") {
+      status.textContent = "🎤 Voice AI Ready";
+    }
+
+  };
+
+  try {
+    recognition.start();
+  } catch (error) {
+    status.textContent = "மீண்டும் முயற்சி செய்யுங்கள்.";
+  }
+}
+
+// ENTER KEY
+
 document.getElementById("userInput")
-  .addEventListener("keydown", function(event) {
-    if (event.key === "Enter") sendMessage();
-  });
+.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+
+});
+
+// CLEAR CHAT
+
+function clearChat() {
+
+  const messages = document.getElementById("messages");
+
+  messages.innerHTML = `
+    <div class="message bot">
+      வணக்கம் Boss! 👋 நான் Ultron AI.
+      என்ன உதவி வேண்டும்?
+    </div>
+  `;
+
+  stopSpeaking();
+
+  document.getElementById("voiceStatus").textContent =
+    "🎤 Voice AI Ready";
+}
+
 </script>
 
 </body>
