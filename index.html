@@ -1,12 +1,235 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Ultron Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULTRON AI</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #070b12;
+  color: white;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1c3040;
+}
+
+.logo {
+  color: #00ffae;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.status {
+  color: #00ffae;
+  font-size: 12px;
+}
+
+main {
+  max-width: 750px;
+  margin: 55px auto;
+  padding: 20px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.orb {
+  width: 105px;
+  height: 105px;
+  margin: auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00ffae, #006d86, #10152a);
+  box-shadow: 0 0 35px #00ffae88;
+}
+
+h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+h1 span {
+  color: #00ffae;
+}
+
+.subtitle {
+  color: #9ba9ba;
+  line-height: 1.6;
+}
+
+.chat {
+  background: #101925;
+  border: 1px solid #263c4d;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.chat-title {
+  color: #00ffae;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.messages {
+  min-height: 180px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 13px;
+  border-radius: 12px;
+  margin: 12px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.bot {
+  background: #1a2b38;
+  border-left: 3px solid #00ffae;
+}
+
+.user {
+  background: #123b43;
+  margin-left: 35px;
+}
+
+.input-area {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #345064;
+  background: #080e17;
+  color: white;
+  font-size: 15px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  background: #00e6a0;
+  color: #00140e;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+footer {
+  text-align: center;
+  color: #738397;
+  padding: 25px;
+  font-size: 12px;
+}
+
+@media(max-width:500px) {
+  h1 { font-size: 30px; }
+  main { margin: 30px auto; }
+  .input-area button { padding: 12px; }
+}
+</style>
 </head>
+
 <body>
-    <h1>வணக்கம் Boss!</h1>
-    <h2>Ultron உலகத்திற்கு வரவேற்கிறேன்</h2>
-    <p>இது என்னுடைய முதல் Website!</p>
+
+<header>
+  <div class="logo">◈ ULTRON AI</div>
+  <div class="status">● ONLINE DEMO</div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="orb"></div>
+    <h1>Hello, <span>Boss!</span></h1>
+    <p class="subtitle">
+      I am Ultron AI.<br>
+      Your personal digital assistant.
+    </p>
+  </section>
+
+  <section class="chat">
+    <div class="chat-title">◈ ULTRON CHAT</div>
+
+    <div class="messages" id="messages">
+      <div class="message bot">
+        Hello Boss! 👋 I am Ultron.
+        How can I help you today?
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        id="userInput"
+        type="text"
+        placeholder="Ask Ultron anything..."
+      >
+      <button onclick="sendMessage()">SEND</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ULTRON AI © 2026 | Created by Boss
+</footer>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const messages = document.getElementById("messages");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  const user = document.createElement("div");
+  user.className = "message user";
+  user.textContent = text;
+  messages.appendChild(user);
+
+  input.value = "";
+
+  const reply = document.createElement("div");
+  reply.className = "message bot";
+  reply.textContent =
+    "Hello Boss! I received your message. " +
+    "I am currently running in Demo Mode. " +
+    "Real AI connection will be added in the next mission.";
+
+  messages.appendChild(reply);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+document.getElementById("userInput")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") sendMessage();
+  });
+</script>
+
 </body>
 </html>
